@@ -17,7 +17,8 @@ class SignUpForm extends StatefulWidget {
 
 Future<UserModel> registerUser(
 String email, String password, String userName, BuildContext context) async {
-  var Url = "http://localhost:3306/xxxx";
+
+  var Url = "http://192.168.0.180:8090/sign_up";
   var response = await http.post(Url,
   headers:<String, String>{"Content-Type":"application/json"},
   body:jsonEncode(<String, String>{
@@ -25,11 +26,10 @@ String email, String password, String userName, BuildContext context) async {
     "password": password,
     "userName" : userName,
   }));
-
+  print(response);
   if(response.statusCode == 200){
     final String responseString = response.body;
-    showDialog(
-        context: context,
+    showDialog(context: context,
     barrierDismissible: true,
     builder: (BuildContext dialogContext){
           return MyAlertDialog(title: 'Backend Response', content: responseString);
